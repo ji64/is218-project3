@@ -55,7 +55,7 @@ def create_app():
     app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'Simplex'
     app.register_error_handler(404, page_not_found)
     # app.add_url_rule("/", endpoint="index")
-    db_dir = "database/db.sqlite"
+    db_dir = "database/db.sqlit e"
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.abspath(db_dir)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
@@ -69,6 +69,7 @@ def create_app():
     root = os.path.dirname(os.path.abspath(__file__))
     # set the name of the apps log folder to logs
     logdir = os.path.join(root, 'logs')
+    print("LOG LOCATION: ", logdir)
     # make a directory if it doesn't exist
     if not os.path.exists(logdir):
         os.mkdir(logdir)
