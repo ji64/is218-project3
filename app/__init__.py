@@ -16,6 +16,8 @@ from app.exceptions import http_exceptions
 from app.logging_config import log_con
 from app.simple_pages import simple_pages
 
+import logging
+
 login_manager = flask_login.LoginManager()
 
 
@@ -43,6 +45,13 @@ def create_app():
     db.init_app(app)
     # add command function to cli commands
     app.cli.add_command(create_database)
+
+
+    #create log
+    try:
+        os.mkdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs"))
+    except OSError:
+        pass
     app.register_blueprint(log_con)
 
     return app
