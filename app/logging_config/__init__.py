@@ -102,6 +102,13 @@ LOGGING_CONFIG = {
             'maxBytes': 10000000,
             'backupCount': 5,
         },
+        'file.handler.debug': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'standard',
+            'filename': 'app/logs/debug.log',
+            'maxBytes': 10000000,
+            'backupCount': 5,
+        },
     },
     'loggers': {
         '': {  # root logger
@@ -134,6 +141,10 @@ LOGGING_CONFIG = {
             'level': 'DEBUG',
             'propagate': False
         },
-
+        'debugger': {  # if __name__ == '__main__'
+            'handlers': ['file.handler.debug'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
     }
 }
