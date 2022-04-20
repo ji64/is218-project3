@@ -7,7 +7,7 @@
 
 [![Development Workflow 3.8](https://github.com/ji64/is218-project3/actions/workflows/dev.yml/badge.svg)](https://github.com/ji64/is218-project3/actions/workflows/dev.yml)
 
-* [Developmental Deployment](https://ji64-project3-dev.herokuapp.com/)
+* [Developmental Deployment](https://ji64-development.herokuapp.com/)
 
 ## Setting up CI/CD
 

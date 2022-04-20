@@ -2,7 +2,7 @@
 import os
 
 import flask_login
-from flask import render_template, Flask
+from flask import render_template, Flask, current_app
 from flask_bootstrap import Bootstrap5
 from flask_wtf.csrf import CSRFProtect
 
@@ -28,7 +28,14 @@ def page_not_found(e):
 def create_app():
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__)
-    app.secret_key = 'This is an INSECURE secret!! DO NOT use this in production!!'
+
+    if app.config["ENV"] == "production":
+        app.config.from_object("app.config.ProductionConfig")
+    elif app.config["ENV"] == "development":
+        app.config.from_object("app.config.DevelopmentConfig")
+    elif app.config["ENV"] == "testing":
+        app.config.from_object("app.config.TestingConfig")
+
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
     csrf = CSRFProtect(app)
@@ -55,7 +62,6 @@ def create_app():
     app.register_blueprint(log_con)
 
     return app
-
 
 @login_manager.user_loader
 def user_loader(user_id):
