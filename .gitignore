@@ -7,3 +7,8 @@ __pycache__
 .coverage
 .bash_history
 *.log
+*.sqlite
+database
+logs
+.env
+uploads

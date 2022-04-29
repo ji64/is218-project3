@@ -16,4 +16,3 @@ def test_log_files_exists():
         os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../app/logs/sqlalchemy.log"))) == True
     assert os.path.exists(
         os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../app/logs/werkzeug.log"))) == True
-
