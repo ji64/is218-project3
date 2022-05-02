@@ -62,6 +62,8 @@ def map_locations():
 def location_upload():
     form = csv_upload()
     if form.validate_on_submit():
+        log = logging.getLogger("fileupload")
+
         filename = secure_filename(form.file.data.filename)
         filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
         form.file.data.save(filepath)
@@ -76,6 +78,7 @@ def location_upload():
                 else:
                     current_user.locations.append(location)
                     db.session.commit()
+        log.info("Uploaded location file: " + filename)
         return redirect(url_for('map.browse_locations'))
 
     try:
