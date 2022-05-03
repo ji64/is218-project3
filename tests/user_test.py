@@ -60,16 +60,16 @@ def test_login(client, application):
     response = client.get('/logout', follow_redirects=True)
     assert response.status_code == 200
 
-def test_logged_in_dashboard(client, application):
+def test_logged_in_dashboard(test_client, application):
     application.app_context()
-    application.secret_key = "this is a testing secret key"
-    #application.config['WTF_CSRF_ENABLED'] = False
-    response = client.post('/login', data=dict(email="test@test.com", password="testtest"),
+    #application.secret_key = "this is a testing secret key"
+    application.config['WTF_CSRF_ENABLED'] = False
+    response = test_client.post('/login', data=dict(email="test@test.com", password="testtest"),
                                 follow_redirects=True)
     assert response.status_code == 200
-    response = client.get('/dashboard')
+    response = test_client.get('/dashboard')
     assert response.status_code == 200
-    response = client.get('/logout', follow_redirects=True)
+    response = test_client.get('/logout', follow_redirects=True)
     assert response.status_code == 200
 
 def test_logged_out_dashboard(client, application):
