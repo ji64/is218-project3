@@ -21,6 +21,7 @@ def application():
     os.environ['FLASK_ENV'] = 'testing'
 
     application = create_app()
+    application.config['WTF_CSRF_METHODS'] = []
 
     with application.app_context():
         db.create_all()
