@@ -56,7 +56,7 @@ def runner(application):
 @pytest.fixture()
 def test_client(application):
     flask_app = app.run.app
-    flask_app.secret_key='Testing Secret Key'
+    flask_app.config['WTF_CSRF_METHODS'] = []
     testing_client = flask_app.test_client()
     ctx = flask_app.app_context()
     ctx.push()
