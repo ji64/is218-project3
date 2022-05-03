@@ -2,7 +2,7 @@
 import os
 
 def test_upload_song_csv(test_client):
-    response = test_client.post('/login', data=dict(email="keith@webizly.com", password="testtest"),
+    response = test_client.post('/login', data=dict(email="test@test.com", password="testtest"),
                                 follow_redirects=True)
     assert response.status_code == 200
 
@@ -17,7 +17,7 @@ def test_upload_song_csv(test_client):
 
 
 def test_upload_location_csv(test_client):
-    response = test_client.post('/login', data=dict(email="keith@webizly.com", password="testtest"),
+    response = test_client.post('/login', data=dict(email="test@test.com", password="testtest"),
                                 follow_redirects=True)
     assert response.status_code == 200
 

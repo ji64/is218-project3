@@ -24,7 +24,7 @@ def test_adding_user(application):
         #asserting that the user retrieved is correct
         assert user.email == 'keith@webizly.com'
         #this is how you get a related record ready for insert
-        user.songs= [Song("test","smap", "test"),Song("test2","te", "test")]
+        user.songs= [Song("test","smap", "test", 2016),Song("test2","te", "test",2020)]
         #commit is what saves the songs
         db.session.commit()
         assert db.session.query(Song).count() == 2
@@ -41,6 +41,30 @@ def test_adding_user(application):
         assert db.session.query(User).count() == 0
         assert db.session.query(Song).count() == 0
 
+def test_register(test_client):
+    response = test_client.post('/register', data=dict(email="test@test.com", password="testtest", confirm="testtest"),
+                                follow_redirects=True)
+    assert response.status_code == 200
+
+def test_login(test_client):
+    response = test_client.post('/login', data=dict(email="test@test.com", password="testtest"),
+                                follow_redirects=True)
+    assert response.status_code == 200
+    response = test_client.get('/logout', follow_redirects=True)
+    assert response.status_code == 200
+
+def test_logged_in_dashboard(test_client):
+    response = test_client.post('/login', data=dict(email="test@test.com", password="testtest"),
+                                follow_redirects=True)
+    assert response.status_code == 200
+    response = test_client.get('/dashboard')
+    assert response.status_code == 200
+    response = test_client.get('/logout', follow_redirects=True)
+    assert response.status_code == 200
+
+def test_logged_out_dashboard(test_client):
+    response = test_client.get('/dashboard')
+    assert response.status_code == 302
 
 
 
