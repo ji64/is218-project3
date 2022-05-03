@@ -44,84 +44,84 @@ def test_adding_user(application):
 
 def test_register(client, application):
     application.app_context()
-    application.secret_key="this is a testing secret key"
+    #application.secret_key="this is a testing secret key"
     #application.config['WTF_CSRF_ENABLED'] = False
     response = client.post('/register', data=dict(email="test@test.com", password="testtest", confirm="testtest"),
                                 follow_redirects=True)
     assert response.status_code == 200
 
-def test_login(test_client, application):
+def test_login(client, application):
     application.app_context()
     application.secret_key = "this is a testing secret key"
     #application.config['WTF_CSRF_ENABLED'] = False
-    response = test_client.post('/login', data=dict(email="test@test.com", password="testtest"),
+    response = client.post('/login', data=dict(email="test@test.com", password="testtest"),
                                 follow_redirects=True)
     assert response.status_code == 200
-    response = test_client.get('/logout', follow_redirects=True)
+    response = client.get('/logout', follow_redirects=True)
     assert response.status_code == 200
 
-def test_logged_in_dashboard(test_client, application):
+def test_logged_in_dashboard(client, application):
     application.app_context()
     application.secret_key = "this is a testing secret key"
     #application.config['WTF_CSRF_ENABLED'] = False
-    response = test_client.post('/login', data=dict(email="test@test.com", password="testtest"),
+    response = client.post('/login', data=dict(email="test@test.com", password="testtest"),
                                 follow_redirects=True)
     assert response.status_code == 200
-    response = test_client.get('/dashboard')
+    response = client.get('/dashboard')
     assert response.status_code == 200
-    response = test_client.get('/logout', follow_redirects=True)
+    response = client.get('/logout', follow_redirects=True)
     assert response.status_code == 200
 
-def test_logged_out_dashboard(test_client, application):
+def test_logged_out_dashboard(client, application):
     application.app_context()
     application.secret_key = "this is a testing secret key"
     #application.config['WTF_CSRF_ENABLED'] = False
-    response = test_client.get('/dashboard')
+    response = client.get('/dashboard')
     assert response.status_code == 302
 
-def test_upload_song_csv(test_client, application):
+def test_upload_song_csv(client, application):
     application.app_context()
     application.secret_key = "this is a testing secret key"
     application.config['WTF_CSRF_ENABLED'] = False
-    response = test_client.post('/login', data=dict(email="test@test.com", password="testtest"),
+    response = client.post('/login', data=dict(email="test@test.com", password="testtest"),
                                 follow_redirects=True)
     assert response.status_code == 200
 
     songs = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "music.csv"))
     csv_data = open(songs, "rb")
     data = {"file": (csv_data, "music.csv")}
-    response = test_client.post('/songs/upload', data=data, follow_redirects=True, buffered=True,
+    response = client.post('/songs/upload', data=data, follow_redirects=True, buffered=True,
                                 content_type='multipart/form-data')
     assert response.status_code == 200
-    response = test_client.get("/songs")
+    response = client.get("/songs")
     assert response.status_code == 200
 
     assert os.path.exists(
         os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'uploads', 'music.csv'))) == True
-    response = test_client.get('/logout', follow_redirects=True)
+    response = client.get('/logout', follow_redirects=True)
     assert response.status_code == 200
 
 
-def test_upload_location_csv(test_client, application):
+def test_upload_location_csv(client, application):
     application.app_context()
     application.secret_key = "this is a testing secret key"
     application.config['WTF_CSRF_ENABLED'] = False
-    response = test_client.post('/login', data=dict(email="test@test.com", password="testtest"),
+    response = client.post('/login', data=dict(email="test@test.com", password="testtest"),
                                 follow_redirects=True)
     assert response.status_code == 200
 
     songs = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "us_cities_short.csv"))
     csv_data = open(songs, "rb")
     data = {"file": (csv_data, "us_cities_short.csv")}
-    response = test_client.post('/locations/upload', data=data, follow_redirects=True, buffered=True,
+    response = client.post('/locations/upload', data=data, follow_redirects=True, buffered=True,
                                 content_type='multipart/form-data')
     assert response.status_code == 200
-    response = test_client.get("/locations/map")
+    response = client.get("/locations/map")
     assert response.status_code == 200
 
     assert os.path.exists(
         os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'uploads', 'us_cities_short.csv'))) == True
-    response = test_client.get('/logout', follow_redirects=True)
+    response = client.get('/logout', follow_redirects=True)
     assert response.status_code == 200
 
 
