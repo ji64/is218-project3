@@ -43,8 +43,8 @@ def test_adding_user(application):
         assert db.session.query(Song).count() == 0
 
 def test_register(test_client, application):
-    application.app_context()
-    application.secret_key="this is a testing secret key"
+    #application.app_context()
+    #application.secret_key="this is a testing secret key"
     #application.config['WTF_CSRF_ENABLED'] = False
     response = test_client.post('/register', data=dict(email="test@test.com", password="testtest", confirm="testtest"),
                                 follow_redirects=True)
