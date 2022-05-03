@@ -63,6 +63,8 @@ def create_app():
         "methods": ["OPTIONS", "GET", "POST"],
     }
     CORS(app, resources={"/api/*": api_v1_cors_config})
+
+    app.secret_key = app.config['SECRET_KEY']
     # Run once at startup:
     return app
 
