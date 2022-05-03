@@ -21,7 +21,7 @@ def application():
     os.environ['FLASK_ENV'] = 'testing'
 
     application = create_app()
-    application.config['WTF_CSRF_METHODS'] = []
+    #application.config['WTF_CSRF_METHODS'] = []
 
     with application.app_context():
         db.create_all()
@@ -57,7 +57,6 @@ def runner(application):
 @pytest.fixture()
 def test_client(application):
     flask_app = app.run.app
-    flask_app.config['WTF_CSRF_METHODS'] = []
     testing_client = flask_app.test_client()
     ctx = flask_app.app_context()
     ctx.push()
