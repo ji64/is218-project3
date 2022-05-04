@@ -4,6 +4,7 @@ import logging
 import os
 
 import pytest
+from flask import Flask
 
 import app.run
 from app import create_app, User
@@ -55,7 +56,7 @@ def runner(application):
     return application.test_cli_runner()
 
 @pytest.fixture()
-def test_client(application):
+def test_client():
     flask_app = app.run.app
     testing_client = flask_app.test_client()
     ctx = flask_app.app_context()

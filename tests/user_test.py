@@ -44,6 +44,9 @@ def test_adding_user(application):
 
 def test_register(test_client, application):
     application.app_context()
+
+    #print(os.getenv('MAIL_USERNAME'))
+    #print(os.getenv('MAIL_PASSWORD'))
     #application.secret_key="this is a testing secret key"
     #application.config['WTF_CSRF_ENABLED'] = False
     response = test_client.post('/register', data=dict(email="test@test.com", password="testtest", confirm="testtest"),
