@@ -49,6 +49,8 @@ def test_register(test_client, application):
     #print(os.getenv('MAIL_PASSWORD'))
     #application.secret_key="this is a testing secret key"
     #application.config['WTF_CSRF_ENABLED'] = False
+    print(application.config['MAIL_USERNAME'])
+    print(application.config['MAIL_PASSWORD'])
     response = test_client.post('/register', data=dict(email="test@test.com", password="testtest", confirm="testtest"),
                                 follow_redirects=True)
     assert response.status_code == 200
