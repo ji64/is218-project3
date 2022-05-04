@@ -22,9 +22,9 @@ def application():
     os.environ['FLASK_ENV'] = 'testing'
 
     os.environ['SECRET_KEY'] = '192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf'
+    os.environ['MAIL_USERNAME'] = 'fajsdfsdsd'
 
     application = create_app()
-    #application.config['WTF_CSRF_METHODS'] = []
 
     with application.app_context():
         db.create_all()
@@ -58,7 +58,7 @@ def runner(application):
     return application.test_cli_runner()
 
 @pytest.fixture()
-def test_client():
+def test_client(application):
     flask_app = app.run.app
     testing_client = flask_app.test_client()
     ctx = flask_app.app_context()
