@@ -43,7 +43,8 @@ def create_app():
 
     # Needed for CSRF protection of form submissions and WTF Forms
     # https://wtforms.readthedocs.io/en/3.0.x/
-    csrf = CSRFProtect(app)
+    if os.environ.get("FLASK_ENV") == "production":
+        csrf = CSRFProtect(app)
     # https://bootstrap-flask.readthedocs.io/en/stable/
     bootstrap = Bootstrap5(app)
     # these load functions with web interface
@@ -63,6 +64,8 @@ def create_app():
         "methods": ["OPTIONS", "GET", "POST"],
     }
     CORS(app, resources={"/api/*": api_v1_cors_config})
+
+    app.secret_key = app.config['SECRET_KEY']
     # Run once at startup:
     return app
 
