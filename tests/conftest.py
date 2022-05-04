@@ -21,7 +21,7 @@ def application():
     #you need to run it in testing to pass on github
     os.environ['FLASK_ENV'] = 'testing'
 
-    os.environ['SECRET_KEY'] = 'fasdfsdfasdfsdfsdfsadfasdfsadfsdfasdfsadfasdfa'
+    os.environ['SECRET_KEY'] = '192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf'
 
     application = create_app()
     #application.config['WTF_CSRF_METHODS'] = []

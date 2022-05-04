@@ -2,11 +2,11 @@ import os
 
 class Config(object):
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    WTF_CSRF_ENABLED = True
-    WTF_CSRF_SECRET_KEY = os.urandom(32)
+    #WTF_CSRF_ENABLED = True
+    #WTF_CSRF_SECRET_KEY = os.urandom(32)
     DEBUG = False
     TESTING = False
-    SECRET_KEY = os.urandom(32)
+    SECRET_KEY = '192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf'
     SESSION_COOKIE_SECURE = True
     BOOTSTRAP_BOOTSWATCH_THEME = 'Simplex'
     DB_DIR = os.getenv('DB_DIR','database')
@@ -38,7 +38,6 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     SESSION_COOKIE_SECURE = False
     DEBUG = True
-
     WTF_CSRF_ENABLED = False
     #WTF_CSRF_CHECK_DEFAULT = False
 
