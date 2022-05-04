@@ -36,7 +36,7 @@ def add_user(application):
     user = ''
     with application.app_context():
         #new record
-        user = User('keith@webizly.com', 'testtest', True)
+        user = User('test@test.com', 'testtest', True)
         db.session.add(user)
         db.session.commit()
     #return user
